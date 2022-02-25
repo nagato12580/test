@@ -1,0 +1,5 @@
+insert into username_login(username,password) values
+('root','ROOT'),
+('smart','123456'),
+('nagato','12580'),
+('yamato','12306');

@@ -1,0 +1,21 @@
+1.RuntimeError: Model class booktest.models.BookInfo doesn't declare an explicit app_label and isn't in an application in INSTALLED_APPS.
+尝试app_label = 'yourApp'在模型元类中添加：
+
+	class Meta:
+
+    		app_label = 'yourApp'
+
+2.TypeError: __init__() missing 1 required positional argument: 'on_delete'
+	在第二个类引用第一个类建立一对多关系的后面加上：on_delete=models.DO_NOTHING
+	（   hbook = models.ForeignKey('BookInfo1',on_delete=models.DO_NOTHING)）
+
+3.页面报错：在使用模板时遇到的错误，TypeError at /index/ context must be a dict rather than RequestContext.	
+	解决方法：
+		    #使用模板文件
+   		   #1.加载模板文件,返回模板对象
+    		temp = loader.get_template('boooktest1/index.html')
+  		  # 2.定义模板上下文：给模板文件传递数据
+   		 context = RequestContext(request,{})
+    		#3.模板渲染:把变量和语句替换掉，产生标准的html内容,返回替换后的内容，即为标准的html文件
+   		 res_html = temp.render(context=locals())
+    		return HttpResponse(res_html)
